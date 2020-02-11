@@ -1,6 +1,7 @@
 #include <windows.h>  
   #include <iostream>  
   #include <thread>  
+  #include <conio.h>
   
 using namespace std;  
     
@@ -14,6 +15,8 @@ using namespace std;
   }  
     
   int matrix[8][16]; //defines our game screen  
+  
+  int segundos = 0;
   
   void Dibujar_Puntos(int x,int y){
   	
@@ -107,7 +110,7 @@ using namespace std;
           	}  
         	else if (GetAsyncKeyState(VK_RIGHT) & (0x8000 != 0)){  
             	c->mover_Derecha();  
-         	}	  
+         	} 
   		}  
 	 }  
   
@@ -117,10 +120,16 @@ using namespace std;
 	perder
 }
   */
-  int chocar(){
+  
+  void chocar(){
   	cout<<"Que triste hermano";
-  	return 0;
+  	
   }
+  
+  boolean cosas = true;
+
+	
+  
   void Iniciar(){
   	Carro micarro=Carro();
   	Enemigo ene=Enemigo();
@@ -129,6 +138,8 @@ using namespace std;
   	
   	bool correr=true;
 	bool terminar = true;
+  	int time = 50, timeAux = 0;
+  	
   	
   	while(correr){
   		Limpiar_Tablero();
@@ -146,16 +157,22 @@ using namespace std;
                else if(matrix[i][j]==1){  
              		 gotoXY(i,j);  
              		 std::cout<<"0";  
-             		 cout << "                 Enemigo" <<ene.posx << " " << ene.posy<<"		Carro"<<micarro.posx<<" "<<micarro.posy;
-             			if(((ene.posx == 5 && micarro.posx == 4)&&(ene.posy == 14 && micarro.posy == 13))){
+             			
+             			if(((ene.posx == 5 && micarro.posx == 4)&&(ene.posy > 12 && micarro.posy == 13))){
              			Limpiar_Tablero();
-						 	cout<<"Me chocaron";
+						 	cout<<"Me chocaron"<<ene.posy << " " << micarro.posy<<endl;
 							correr = false;
 						 	
-						 }else if(((ene.posx == 2 && micarro.posx == 1)&&(ene.posy == 14 && micarro.posy == 13))){
-						 	cout<<"Ya termino esto";
-						 	correr = false;
-						
+						 }else if(((ene.posx == 2 && micarro.posx == 1)&&(ene.posy > 12 && micarro.posy == 13))){
+						 	cout<<"Ya termino esto"<<ene.posy << " " << micarro.posy<<endl;
+						 	correr = false;						
+						 }else if(GetAsyncKeyState(VK_UP) & (0x8000 != 0)){
+						 	
+         					system("cls");
+         					cout << "Presiona cualquier tecla para volver a jugar" << endl;
+         					cout << time << endl;
+         					system("pause");
+         					system("cls");
 						 }
              		
            	   }  
@@ -166,7 +183,20 @@ using namespace std;
             }  
        }  
     
-      Sleep(50);  
+    	
+    
+      Sleep(time);
+		segundos += time;
+		if (time > 15) {
+			timeAux += time;
+			if (timeAux >= 10000) {
+				time = time - 70;
+				timeAux = 0;
+			}
+		}
+		else {
+			time = 15;
+		}
    } 
   
   	myHilo.detach();
@@ -174,9 +204,8 @@ using namespace std;
   
   int main(){
   	Iniciar();
-  	
-  	cout<<"Se termino esta mierda"<<endl;
-  	return 0;
+  	cout<< endl;
+  	cout<<"Se termino el juego" << segundos/1000  << endl;
   }
   
 
