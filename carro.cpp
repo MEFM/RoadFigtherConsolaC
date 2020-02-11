@@ -122,12 +122,22 @@ using namespace std;
   */
   
   void chocar(){
-  	cout<<"Que triste hermano";
-  	
+  	while(true){
+  		Sleep(1000);
+  		segundos++;
+	  }  	
+  }
+  
+  void restar(){
+  	while(1){
+  		Sleep(1000);
+  		segundos--;
+	  }
   }
   
   boolean cosas = true;
 
+	
 	
   
   void Iniciar(){
@@ -135,10 +145,10 @@ using namespace std;
   	Enemigo ene=Enemigo();
   	
   	thread myHilo(myListener,&micarro);
-  	
+  	thread hilo2(chocar);
   	bool correr=true;
 	bool terminar = true;
-  	int time = 50, timeAux = 0;
+  	int time = 150, timeAux = 0;
   	
   	
   	while(correr){
@@ -170,10 +180,10 @@ using namespace std;
 						 	
          					system("cls");
          					cout << "Presiona cualquier tecla para volver a jugar" << endl;
-         					cout << time << endl;
+         					cout << segundos << endl;
          					system("pause");
          					system("cls");
-						 }
+         				 }
              		
            	   }  
                 else {  
@@ -184,9 +194,8 @@ using namespace std;
        }  
     
     	
-    
+    	
       Sleep(time);
-		segundos += time;
 		if (time > 15) {
 			timeAux += time;
 			if (timeAux >= 10000) {
@@ -200,12 +209,13 @@ using namespace std;
    } 
   
   	myHilo.detach();
+  	hilo2.detach();
   }
   
   int main(){
   	Iniciar();
   	cout<< endl;
-  	cout<<"Se termino el juego" << segundos/1000  << endl;
+  	cout<<"Se termino el juego" << segundos  << endl;
   }
   
 
