@@ -136,9 +136,7 @@ using namespace std;
   }
   
   boolean cosas = true;
-
-	
-	
+  	int estado = 3;
   
   void Iniciar(){
   	Carro micarro=Carro();
@@ -187,10 +185,30 @@ using namespace std;
              		
            	   			else if(GetAsyncKeyState(VK_RIGHT) && (0x8000 !=0))
            	   			{
-           	   				micarro.mover_Derecha();		
+           	   			
+           	   				if(estado != 0){
+           	   				micarro.mover_Derecha();	
+							estado = 0;
+								  }else{								  
+           	   				estado = 0;
+           	   					  correr = false;	
+								  }
+								  Sleep(200);
+							
+								
 					    }else if(GetAsyncKeyState(VK_LEFT) && (0x8000 !=0)){
+					    	if(estado != 1){
 					    	micarro.Mover_Izquierda();
-						}
+							estado = 1;	
+							}else
+							{
+								estado = 1;
+								correr =false;
+							}
+					    	
+								  Sleep(200
+								  );
+					   	}
 				  }  
                 else {  
                  gotoXY(i,j);  
