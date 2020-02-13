@@ -144,8 +144,8 @@ using namespace std;
   	Carro micarro=Carro();
   	Enemigo ene=Enemigo();
   	
-  	thread myHilo(myListener,&micarro);
-  	thread hilo2(chocar);
+  //	thread myHilo(myListener,&micarro);
+  //	thread hilo2(chocar);
   	bool correr=true;
 	bool terminar = true;
   	int time = 150, timeAux = 0;
@@ -185,7 +185,13 @@ using namespace std;
          					system("cls");
          				 }
              		
-           	   }  
+           	   			else if(GetAsyncKeyState(VK_RIGHT) && (0x8000 !=0))
+           	   			{
+           	   				micarro.mover_Derecha();		
+					    }else if(GetAsyncKeyState(VK_LEFT) && (0x8000 !=0)){
+					    	micarro.Mover_Izquierda();
+						}
+				  }  
                 else {  
                  gotoXY(i,j);  
                   cout<<" ";  
@@ -208,8 +214,7 @@ using namespace std;
 		}
    } 
   
-  	myHilo.detach();
-  	hilo2.detach();
+  //	hilo2.detach();
   }
   
   int main(){
@@ -221,4 +226,3 @@ using namespace std;
 
     
   
-
